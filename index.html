@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mpote AI Essentials | Enterprise AI Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        
+        body { font-family: 'Space Grotesk', sans-serif; background-color: #050505; color: #e5e7eb; scroll-behavior: smooth; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .tech-gradient { background: linear-gradient(135deg, #0891b2 0%, #7c3aed 100%); }
+        .service-card .details-overlay { opacity: 0; transform: translateY(10px); transition: all 0.3s ease; }
+        .service-card:hover .details-overlay { opacity: 1; transform: translateY(0); }
+        .filter-btn.active { background: #0891b2; border-color: #0891b2; }
+        
+        #chat-window { display: none; }
+        #chat-window.active { display: flex; animation: slideIn 0.3s ease-out; }
+        @keyframes slideIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <nav class="fixed top-0 w-full z-50 glass px-4 md:px-6 py-4 flex justify-between items-center">
+        <div class="text-xl md:text-2xl font-bold tracking-tighter text-cyan-400">MPOTE AI</div>
+        <div class="hidden md:flex space-x-8 text-sm uppercase tracking-widest font-medium">
+            <a href="#home" class="hover:text-cyan-400 transition">Home</a>
+            <a href="#services" class="hover:text-cyan-400 transition">Services</a>
+            <a href="#about" class="hover:text-cyan-400 transition">About</a>
+        </div>
+        <button onclick="toggleCart()" class="relative p-2">
+            <i class="fa-solid fa-cart-shopping text-xl text-cyan-400"></i>
+            <span id="cart-count" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center hidden">0</span>
+        </button>
+    </nav>
+
+    <section id="home" class="relative h-screen flex items-center justify-center text-center px-4 overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1920" class="absolute inset-0 w-full h-full object-cover opacity-20" alt="Tech Hub">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-[#050505]"></div>
+        <div class="relative z-10 max-w-4xl">
+            <h1 class="text-4xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500">Mpote AI Essentials</h1>
+            <p class="text-lg md:text-2xl mb-8 text-gray-300 px-2">The 2026 AI Framework: Social, Literary & Tech Mastery.</p>
+            <a href="#services" class="tech-gradient px-8 md:px-10 py-4 rounded-full font-bold hover:scale-105 transition transform inline-block">Explore 20+ Services</a>
+        </div>
+    </section>
+
+    <section id="services" class="py-24 px-4 md:px-6 max-w-7xl mx-auto">
+        <div id="filter-container" class="flex flex-wrap justify-center gap-2 md:gap-3 mb-12">
+            <button onclick="filterServices('All')" class="filter-btn active px-4 md:px-6 py-2 rounded-full border border-white/20 text-[10px] md:text-xs">ALL</button>
+            <button onclick="filterServices('Social')" class="filter-btn px-4 md:px-6 py-2 rounded-full border border-white/20 text-[10px] md:text-xs">SOCIAL</button>
+            <button onclick="filterServices('Video')" class="filter-btn px-4 md:px-6 py-2 rounded-full border border-white/20 text-[10px] md:text-xs">VIDEO</button>
+            <button onclick="filterServices('Literary')" class="filter-btn px-4 md:px-6 py-2 rounded-full border border-white/20 text-[10px] md:text-xs">LITERARY</button>
+            <button onclick="filterServices('Business')" class="filter-btn px-4 md:px-6 py-2 rounded-full border border-white/20 text-[10px] md:text-xs">BUSINESS</button>
+            <button onclick="filterServices('Tech')" class="filter-btn px-4 md:px-6 py-2 rounded-full border border-white/20 text-[10px] md:text-xs">TECH</button>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6" id="services-grid"></div>
+    </section>
+
+    <section id="about" class="py-24 bg-zinc-950 px-4 md:px-6">
+        <div class="max-w-5xl mx-auto">
+            <div class="glass p-6 md:p-12 rounded-3xl border border-cyan-500/10">
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-bold mb-6 text-cyan-400 uppercase tracking-tighter">Scaling Without Limits</h2>
+                        <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-4">
+                            Mpote AI Essentials is built on the philosophy that advanced AI tools should be accessible to everyone—from solo entrepreneurs in Soweto to growing businesses across the globe.
+                        </p>
+                        <p class="text-gray-300 text-sm md:text-base leading-relaxed">
+                            We specialize in bridging the gap between high-level prompt engineering and practical, creative output. Whether it's literary arts, cinematic video, or responsive tech, we deliver elite results at individual-friendly prices.
+                        </p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-white/5 p-4 rounded-2xl text-center border border-white/5">
+                            <h4 class="text-cyan-400 font-bold text-2xl">20+</h4>
+                            <p class="text-[10px] uppercase text-gray-500 font-bold">Services</p>
+                        </div>
+                        <div class="bg-white/5 p-4 rounded-2xl text-center border border-white/5">
+                            <h4 class="text-purple-400 font-bold text-2xl">48h</h4>
+                            <p class="text-[10px] uppercase text-gray-500 font-bold">Avg Delivery</p>
+                        </div>
+                        <div class="bg-white/5 p-4 rounded-2xl text-center border border-white/5">
+                            <h4 class="text-green-400 font-bold text-2xl">100%</h4>
+                            <p class="text-[10px] uppercase text-gray-500 font-bold">AI Driven</p>
+                        </div>
+                        <div class="bg-white/5 p-4 rounded-2xl text-center border border-white/5">
+                            <h4 class="text-yellow-400 font-bold text-2xl">24/7</h4>
+                            <p class="text-[10px] uppercase text-gray-500 font-bold">Support Bot</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 glass border-t border-white/5 text-center px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-center items-center gap-6 mb-8 text-xs uppercase tracking-widest text-gray-500">
+                <a href="#about" class="hover:text-cyan-400 transition">About Us</a>
+                <span class="hidden md:inline">|</span>
+                <button onclick="showPolicy()" class="hover:text-cyan-400 transition">Privacy Policy</button>
+                <span class="hidden md:inline">|</span>
+                <a href="https://wa.me/27620227855" class="hover:text-cyan-400 transition">Contact Support</a>
+            </div>
+            <p class="text-[10px] text-gray-600 mb-2">© 2026 MPOTE AI ESSENTIALS. ALL RIGHTS RESERVED.</p>
+            <p class="text-[10px] text-gray-700">Powered by the AI Framework | Soweto, South Africa</p>
+        </div>
+    </footer>
+
+    <div id="policy-modal" class="fixed inset-0 z-[200] bg-black/90 flex items-center justify-center p-4 hidden">
+        <div class="glass max-w-2xl w-full p-8 rounded-3xl max-h-[80vh] overflow-y-auto">
+            <h2 class="text-2xl font-bold mb-4 text-cyan-400">Privacy Policy</h2>
+            <div class="text-sm text-gray-300 space-y-4">
+                <p><strong>1. Data Collection:</strong> We only collect information provided during the checkout process (Name, Location, and Order Items) to facilitate service delivery via WhatsApp.</p>
+                <p><strong>2. End-to-End Encryption:</strong> All final orders and personal communications are handled via WhatsApp's secure, encrypted platform.</p>
+                <p><strong>3. Data Retention:</strong> Mpote AI Essentials does not store your personal details on a permanent database. Once an order is fulfilled, your tracking data is cleared from our temporary session cache.</p>
+                <p><strong>4. Third-Party Sharing:</strong> We never sell or share your information with third-party advertisers or data brokers.</p>
+            </div>
+            <button onclick="hidePolicy()" class="mt-8 tech-gradient w-full py-3 rounded-xl font-bold">I Understand</button>
+        </div>
+    </div>
+
+    <div class="fixed bottom-6 left-6 z-[100]">
+        <div id="chat-window" class="glass w-72 md:w-80 h-96 mb-4 rounded-3xl flex-col overflow-hidden hidden">
+            <div class="tech-gradient p-4 font-bold flex justify-between items-center text-sm md:text-base">
+                <span>AI Support Agent</span>
+                <button onclick="toggleChat()"><i class="fa-solid fa-minus"></i></button>
+            </div>
+            <div class="flex-grow overflow-y-auto p-4 space-y-3 text-xs md:text-sm" id="chat-content">
+                <div class="bg-white/10 p-3 rounded-2xl rounded-tl-none mb-2">Hello! How can I assist you with Mpote AI services today?</div>
+                <div class="grid grid-cols-1 gap-2" id="faq-list"></div>
+            </div>
+        </div>
+        <button onclick="toggleChat()" class="tech-gradient w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center shadow-2xl animate-bounce">
+            <i class="fa-solid fa-robot text-xl md:text-2xl"></i>
+        </button>
+    </div>
+
+    <div id="cart-sidebar" class="fixed right-0 top-0 h-full w-full md:w-96 bg-zinc-900 z-[100] transform translate-x-full transition-transform duration-300 p-6 md:p-8 flex flex-col shadow-2xl overflow-y-auto">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold">Your Order</h2>
+            <button onclick="toggleCart()"><i class="fa-solid fa-xmark text-2xl"></i></button>
+        </div>
+        <div class="space-y-4 mb-8">
+            <h3 class="text-cyan-400 uppercase text-[10px] font-bold tracking-widest">Customer Tracking</h3>
+            <input type="text" id="cust-name" placeholder="Full Name" class="w-full bg-white/5 border border-white/10 p-3 rounded-xl focus:outline-none focus:border-cyan-400 text-sm">
+            <input type="text" id="cust-location" placeholder="Location (e.g. Soweto)" class="w-full bg-white/5 border border-white/10 p-3 rounded-xl focus:outline-none focus:border-cyan-400 text-sm">
+        </div>
+        <div id="cart-items" class="flex-grow space-y-3 mb-6"></div>
+        <div class="pt-6 border-t border-white/10">
+            <div class="flex justify-between text-xl font-bold mb-6 text-cyan-400">
+                <span>Total:</span>
+                <span id="cart-total">R0</span>
+            </div>
+            <button onclick="checkout()" class="w-full tech-gradient py-4 rounded-xl font-bold">Secure WhatsApp Order</button>
+        </div>
+    </div>
+
+    <script>
+        const services = [
+            { id: 1, name: "Starter Social Pack", price: 1500, category: "Social", desc: "10 AI Images, 4 Reels, and full caption management.", img: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=300" },
+            { id: 2, name: "IG Aesthetic Refresh", price: 500, category: "Social", desc: "9-grid layout design and AI profile optimization.", img: "https://images.unsplash.com/photo-1611262588024-d12430b98920?auto=format&fit=crop&q=80&w=300" },
+            { id: 3, name: "LinkedIn Authority", price: 400, category: "Social", desc: "Professional AI headshot and 5 thought-leadership posts.", img: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&q=80&w=300" },
+            { id: 4, name: "Facebook Ads Copy", price: 200, category: "Social", desc: "High-converting ad copy and 3 variations of AI creative.", img: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=300" },
+            { id: 5, name: "Viral TikTok Edit", price: 250, category: "Video", desc: "Fast cuts and AI transitions designed for the algorithm.", img: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&q=80&w=300" },
+            { id: 6, name: "YouTube Intro", price: 350, category: "Video", desc: "Cinematic 4K intro with AI motion graphics.", img: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&q=80&w=300" },
+            { id: 7, name: "Logo Animation", price: 150, category: "Video", desc: "Transform your static logo into a dynamic motion graphic.", img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=300" },
+            { id: 8, name: "AI Spokesperson", price: 600, category: "Video", desc: "Professional AI avatar video for business explainers.", img: "https://images.unsplash.com/photo-1533750516457-a7f992034fce?auto=format&fit=crop&q=80&w=300" },
+            { id: 9, name: "Poetry Anthology", price: 300, category: "Literary", desc: "Custom AI-assisted poetry for schools and kids.", img: "https://images.unsplash.com/photo-1516662463776-76aead296be6?auto=format&fit=crop&q=80&w=300" },
+            { id: 10, name: "Book Layout", price: 600, category: "Literary", desc: "Interior formatting for print and digital books.", img: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&q=80&w=300" },
+            { id: 11, name: "Children's E-Book", price: 850, category: "Literary", desc: "Written story + 10 AI illustrations for Kindle.", img: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&q=80&w=300" },
+            { id: 12, name: "Photo Restoration", price: 80, category: "Literary", desc: "AI-powered colorization and scratch removal.", img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=300" },
+            { id: 13, name: "Professional CV", price: 150, category: "Business", desc: "ATS-optimized resume designed by AI experts.", img: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&q=80&w=300" },
+            { id: 14, name: "Business Plan", price: 450, category: "Business", desc: "Comprehensive AI market research and financials.", img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=300" },
+            { id: 15, name: "Logo Design", price: 150, category: "Business", desc: "3 Unique AI-generated brand concepts.", img: "https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&q=80&w=300" },
+            { id: 16, name: "Pitch Deck", price: 500, category: "Business", desc: "AI-designed presentation for investors.", img: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=300" },
+            { id: 17, name: "HTML Web App", price: 1200, category: "Tech", desc: "Custom responsive web tools for businesses.", img: "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&q=80&w=300" },
+            { id: 18, name: "Custom Soundtrack", price: 250, category: "Tech", desc: "Bespoke AI audio for films and brand ads.", img: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=300" },
+            { id: 19, name: "QR Menu/Business", price: 100, category: "Tech", desc: "Dynamic QR code linked to your digital site.", img: "https://images.unsplash.com/photo-1595079676339-1534801ad6cf?auto=format&fit=crop&q=80&w=300" },
+            { id: 20, name: "AI Consultation", price: 200, category: "Tech", desc: "Strategy session on AI implementation for your hustle.", img: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=300" }
+        ];
+
+        const faqs = [
+            { q: "How do I pay?", a: "We accept EFT and CashSend. Payment is required before final delivery." },
+            { q: "Turnaround time?", a: "Most services take 24-48 hours. Web apps take 5-7 days." },
+            { q: "Are you in Soweto?", a: "Yes, we are based in Soweto but serve clients globally via AI." },
+            { q: "What is an AI CV?", a: "It's a resume structured by AI to pass through employer filtering software." },
+            { q: "Do you print books?", a: "We handle design and layout; we can refer you to local print partners." }
+        ];
+
+        let cart = [];
+        let currentFilter = 'All';
+
+        function showPolicy() { document.getElementById('policy-modal').classList.remove('hidden'); }
+        function hidePolicy() { document.getElementById('policy-modal').classList.add('hidden'); }
+        function toggleChat() { document.getElementById('chat-window').classList.toggle('active'); }
+        
+        function loadFAQs() {
+            const list = document.getElementById('faq-list');
+            list.innerHTML = faqs.slice(0, 3).map((f, i) => `
+                <button onclick="askFAQ(${i})" class="text-left bg-cyan-900/30 p-2 rounded-lg hover:bg-cyan-900/50 transition">${f.q}</button>
+            `).join('') + `<button onclick="openQuery()" class="text-left bg-purple-900/30 p-2 rounded-lg hover:bg-purple-900/50 font-bold">General Query?</button>`;
+        }
+
+        function askFAQ(i) {
+            const chat = document.getElementById('chat-content');
+            chat.innerHTML += `<div class="bg-cyan-500/20 p-2 rounded-2xl rounded-tr-none self-end text-right ml-12 mb-2">Q: ${faqs[i].q}</div>`;
+            setTimeout(() => {
+                chat.innerHTML += `<div class="bg-white/10 p-2 rounded-2xl rounded-tl-none mr-12 mb-2 italic">A: ${faqs[i].a}</div>`;
+                chat.scrollTop = chat.scrollHeight;
+            }, 400);
+        }
+
+        function openQuery() { window.open("https://wa.me/27620227855?text=Hello, I have a general query regarding Mpote AI Essentials.", "_blank"); }
+
+        function filterServices(category) {
+            currentFilter = category;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.toggle('active', btn.innerText === category.toUpperCase()));
+            renderServices();
+        }
+
+        function renderServices() {
+            const grid = document.getElementById('services-grid');
+            const filtered = currentFilter === 'All' ? services : services.filter(s => s.category === currentFilter);
+            grid.innerHTML = filtered.map(s => `
+                <div class="service-card relative glass rounded-2xl overflow-hidden group border border-white/5">
+                    <img src="${s.img}" loading="lazy" class="h-40 md:h-48 w-full object-cover group-hover:scale-110 transition duration-700 opacity-60" alt="${s.name}">
+                    <div class="details-overlay absolute inset-0 bg-black/90 p-4 md:p-6 flex flex-col justify-center text-center">
+                        <p class="text-[10px] md:text-xs text-gray-300 mb-4">${s.desc}</p>
+                        <button onclick="addToCart(${s.id})" class="tech-gradient py-2 px-4 rounded-full text-xs font-bold text-white shadow-lg">Add R${s.price}</button>
+                    </div>
+                    <div class="p-3 md:p-4 bg-zinc-900/50 flex justify-between items-end">
+                        <div class="overflow-hidden">
+                            <span class="text-[8px] text-cyan-400 font-bold uppercase tracking-widest">${s.category}</span>
+                            <h3 class="text-xs md:text-sm font-bold truncate">${s.name}</h3>
+                        </div>
+                        <p class="text-cyan-400 font-bold text-[10px] md:text-xs">R${s.price}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addToCart(id) { cart.push(services.find(s => s.id === id)); updateCart(); toggleCart(true); }
+        
+        function updateCart() {
+            document.getElementById('cart-count').innerText = cart.length;
+            document.getElementById('cart-count').classList.toggle('hidden', cart.length === 0);
+            document.getElementById('cart-items').innerHTML = cart.map((item, index) => `
+                <div class="flex justify-between items-center bg-white/5 p-3 rounded-xl text-xs border border-white/5">
+                    <div><p class="font-bold">${item.name}</p><p class="text-[10px] text-cyan-400">R${item.price}</p></div>
+                    <button onclick="removeFromCart(${index})" class="text-red-400 hover:text-red-300"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            `).join('');
+            document.getElementById('cart-total').innerText = `R${cart.reduce((sum, item) => sum + item.price, 0)}`;
+        }
+
+        function removeFromCart(index) { cart.splice(index, 1); updateCart(); }
+
+        function toggleCart(open = null) {
+            const sidebar = document.getElementById('cart-sidebar');
+            if (open === true) sidebar.classList.remove('translate-x-full');
+            else if (open === false) sidebar.classList.add('translate-x-full');
+            else sidebar.classList.toggle('translate-x-full');
+        }
+
+        function checkout() {
+            const name = document.getElementById('cust-name').value;
+            const loc = document.getElementById('cust-location').value;
+            if (!name || !loc) return alert("Please enter your name and location!");
+            if (cart.length === 0) return alert("Your cart is empty!");
+
+            const list = cart.map(item => `- ${item.name} (R${item.price})`).join('%0A');
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            const tracking = `*CUSTOMER:* ${name}%0A*LOCATION:* ${loc}%0A`;
+            
+            window.open(`https://wa.me/27620227855?text=🔥 *NEW MPOTE AI ORDER* 🔥%0A%0A${tracking}%0A*ITEMS:*%0A${list}%0A%0A*TOTAL:* R${total}`, '_blank');
+        }
+
+        renderServices();
+        loadFAQs();
+    </script>
+</body>
+</html>
